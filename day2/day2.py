@@ -44,8 +44,28 @@ def part2(lst):
 
     return sum_num
 
+def part2_optimized(lst):
+    sum_num = 0
+    for start, end in lst:
+        for num in range(start, end + 1):
+            s = str(num)
+            length = len(s)
+            half_len = length//2
+            found_pattern = False
+            for p in range(1, half_len + 1):
+                if length % p != 0:
+                    continue
+                pattern = s[:p]
+                if pattern * (length // p) == s:
+                    found_pattern = True
+                    break
+            if found_pattern:
+                sum_num += num
+    return sum_num
+
+
 
 if __name__ == "__main__":
     lines = get_input('input.txt')
     print("First star:", part1(lines))
-    print("Second star:", part2(lines))
+    print("Second star:", part2_optimized(lines))
