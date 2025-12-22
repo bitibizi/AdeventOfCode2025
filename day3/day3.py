@@ -20,9 +20,22 @@ def part1(lst):
         sum_num += result
     return sum_num
 
-
+def part2(lst):
+    sum_num = 0
+    for item in lst:
+        stack = []
+        skips = len(item) - 12
+        for num in item:
+            while stack and num > stack[-1] and skips > 0:
+                stack.pop()
+                skips -= 1
+            stack.append(num)
+        stack = stack[:12]
+        single_string = "".join(stack)
+        sum_num += int(single_string)
+    return sum_num
 
 if __name__ == "__main__":
-    lines = get_input('test.txt')
+    lines = get_input('input.txt')
     print("First star:", part1(lines))
     print("Second star:", part2(lines))
